@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+    web:
+        build:
+            context: .
+            args:
+                environment: development        
+        ports:
+            - "3000:3000"
+        links:
+            - db
+        env_file:
+            - .env
+        depends_on:
+            - db
+        volumes:
+            - ".:/app"
+    db:
+        image: postgres 
+        env_file:
+            - database.env
+        volumes:
+            - database-data:/var/lib/postgresql/data/
+volumes:
+  database-data:
